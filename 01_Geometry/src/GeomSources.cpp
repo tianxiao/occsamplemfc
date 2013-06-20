@@ -2561,7 +2561,35 @@ if(CS.IsDone())
           gp_Pnt aPoint=CS.Point(k);                        
           // do something with the point                    
         }                                                   
-    }                                                       
+    }                  
+
+//==============================================================
+gp_Pnt planeP0(0.0,0.0,0.0);
+gp_Dir planeDir(0.0,0.0,1.0);
+Handle(Geom_Surface) planesurface = new Geom_Plane(planeP0, planeDir);
+DisplaySurface(aDoc,planesurface);
+
+gp_Pnt lineP1(100.0,0.0,200.0);                                         
+gp_Pnt lineP2(100.0,0.0,-200.0);                                          
+Handle(Geom_Curve) alineCurve = GC_MakeSegment(lineP1,lineP2).Value();  
+Handle(ISession_Curve) alineAISCurve = new ISession_Curve(alineCurve);
+aDoc->GetAISContext()->Display(alineAISCurve, Standard_False);
+
+GeomAPI_IntCS lpCS (alineCurve,planesurface);                         
+Handle(Geom_Curve) lpsegment;                                 
+                                                            
+Standard_Integer lpNbSeg;                                     
+Standard_Integer lpNbPoints;     
+
+if (lpCS.IsDone()) {
+	lpNbPoints = lpCS.NbPoints();
+	lpCS.NbSegments();
+	for ( int i=1; i<=lpNbPoints; ++i ) {
+		gp_Pnt aPoint=lpCS.Point(i);   
+		DisplayPoint(aDoc,aPoint,"PointInPlane",false,0.5);
+	}
+}
+
                                                             
 //==============================================================
     TCollection_AsciiString Message (" \
