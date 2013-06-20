@@ -1,0 +1,1 @@
+msvc.bat   vc10 

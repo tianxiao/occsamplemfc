@@ -1,0 +1,9 @@
+IF not "%CASDEB%" EQU "" (
+SET BIN_DIR=win%ARCH%\%VCVER%\bind
+SET LIB_DIR=win%ARCH%\%VCVER%\libd
+) ELSE (
+SET BIN_DIR=win%ARCH%\%VCVER%\bin
+SET LIB_DIR=win%ARCH%\%VCVER%\lib
+)
+
+SET PATH=%~dp0%LIB_DIR%;%~dp0%BIN_DIR%;%PATH%
